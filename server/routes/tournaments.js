@@ -77,8 +77,8 @@ module.exports = (knex, _, env, generateName) => {
     let data = {"teams": [], "results":[]};
     for (let b = 0; b < teamArray.length; b+=2 ) {
       data.teams.push(
-        [{ name: teamArray[b].id    , flag: "in" },
-         { name: teamArray[b + 1].id, flag: "in" },]
+        [{ name: teamArray[b].name    , flag: "in" },
+         { name: teamArray[b + 1].name, flag: "in" },]
       );
       data.results.push(
         [0,0], [0, 0]
@@ -141,11 +141,11 @@ module.exports = (knex, _, env, generateName) => {
     const name = req.body.name;
     const teamCount = req.body.no_of_teams;
     const description = req.body.description;
-    if(!name){
-      // STRETCH: Show 'That name has been taken' error page
-      res.sendStatus(400);
-      return;
-    }
+    // if(!name){
+    //   // STRETCH: Show 'That name has been taken' error page
+    //   res.sendStatus(400);
+    //   return;
+    // }
     knex
       .select("name")
       .from("tournaments")
@@ -160,11 +160,13 @@ module.exports = (knex, _, env, generateName) => {
             .returning('id')
             .then((tournamentID)=> {
               for (let i = 0; i < teamCount; i++) {
+                let randomName = generateName();
                 knex("teams")
-                  .insert({"tournament_id": tournamentID[0], "name": `${generateName()}s`})
+                  .insert({"tournament_id": tournamentID[0], "name": `${randomName}s`})
                   .then(() => {});
               }
-              res.redirect(`/tournaments/${tournamentID[0]}`)
+              res.redirect(`/tournaments/${tournamentID[0]}`);
+              return;
             });
         } else {
           // STRETCH: Show 'Tournament name taken' error page
@@ -256,7 +258,7 @@ module.exports = (knex, _, env, generateName) => {
           const isReady = (enrolledPlayers.length === teamCount * 6);
 
           if (isReady && started) {
-            initializeBrackets(teamArray, results[0].no_of_teams, tournamentID);
+            // initializeBrackets(teamArray, results[0].no_of_teams, tournamentID);
             res.render("tournament_view", {
               teamRoster: getTeamRoster(tournamentID),
               playerCount: enrolledPlayers.length,
@@ -282,6 +284,51 @@ module.exports = (knex, _, env, generateName) => {
         }
       })
   });
+
+  router.post("/:id/start", (req, res) => {
+  const tournamentID = req.params.id
+    // if(!tournamentID){
+    //   // STRETCH: Show 'You did not enter a tournament name' error page
+    //   res.sendStatus(400);
+    //   return;
+    // }
+    console.log(tournamentID)
+    // Lists players from highest level to lowest, then assigns a team ID #
+    // to each player via an array
+    knex
+      .select("id", "name", "no_of_teams")
+      .from("tournaments")
+      .where({id: tournamentID})
+      .then((results) => {
+
+        // console.log('Tournament ID, ' + results[0].id);
+        if(results.length === 0) {
+          // STRETCH: Show 'No tournament of that name found' error page
+          res.sendStatus(404);
+        } else {
+          knex
+            .select("id", "level")
+            .from("tournament_enrollments")
+            .where({tournament_id: tournamentID})
+            .orderBy("level", "desc")
+            .then((playersArray) => {
+              knex
+                .select("id", "name")
+                .from("teams")
+                .where({tournament_id: tournamentID})
+                .then((teamArray) => {
+                  console.log(teamArray);
+                  console.log('in start post', teamArray)
+                  initializeBrackets(teamArray, results[0].no_of_teams, tournamentID);
+                  const teamAssigned = assignPlayersToTeams(playersArray, teamArray);
+                  assignToTeams(teamAssigned);
+                  res.redirect(`/tournaments/${tournamentID}/admin`);
+                });
+            });
+        }
+      });
+  });
+
 
   router.get("/:id", (req, res) => {
     const tournamentID = parseInt(req.params.id);
@@ -330,46 +377,5 @@ module.exports = (knex, _, env, generateName) => {
       });
   });
 
-  router.post("/:id/start", (req, res) => {
-  const tournamentID = req.params.id
-    // if(!tournamentID){
-    //   // STRETCH: Show 'You did not enter a tournament name' error page
-    //   res.sendStatus(400);
-    //   return;
-    // }
-    console.log(tournamentID)
-    // Lists players from highest level to lowest, then assigns a team ID #
-    // to each player via an array
-    knex
-      .select("id", "name", "no_of_teams")
-      .from("tournaments")
-      .where({id: tournamentID})
-      .then((results) => {
-
-        // console.log('Tournament ID, ' + results[0].id);
-        if(results.length === 0) {
-          // STRETCH: Show 'No tournament of that name found' error page
-          res.sendStatus(404);
-        } else {
-          knex
-            .select("id", "level")
-            .from("tournament_enrollments")
-            .where({tournament_id: tournamentID})
-            .orderBy("level", "desc")
-            .then((playersArray) => {
-              knex
-                .select("id")
-                .from("teams")
-                .where({tournament_id: tournamentID})
-                .then((teamArray) => {
-                  initializeBrackets(teamArray, results[0].no_of_teams, tournamentID);
-                  const teamAssigned = assignPlayersToTeams(playersArray, teamArray);
-                  assignToTeams(teamAssigned);
-                  res.redirect(`/tournaments/${tournamentID}/admin`);
-                });
-            });
-        }
-      });
-  });
   return router;
 };

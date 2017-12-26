@@ -12,6 +12,7 @@ $(document).ready(function () {
       url: "/tournaments/new",
       data: formData,
       success: function () {
+        console.log(formData);
         $("#new-tournament-form").html("Tournament Created!");
       }
     })
