@@ -3,7 +3,7 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (knex, _, env) => {
+module.exports = (knex, _, env, generateName) => {
 
   /**
    * This assigns each player to a team based off their skill level
@@ -161,7 +161,7 @@ module.exports = (knex, _, env) => {
             .then((tournamentID)=> {
               for (let i = 0; i < teamCount; i++) {
                 knex("teams")
-                  .insert({"tournament_id": tournamentID[0]})
+                  .insert({"tournament_id": tournamentID[0], "name": `${generateName()}s`})
                   .then(() => {});
               }
               res.redirect(`/tournaments/${tournamentID[0]}`)

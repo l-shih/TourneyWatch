@@ -31,7 +31,8 @@
     "pg": "^7.4.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-tournament-bracket": "^0.1.0"
+    "react-tournament-bracket": "^0.1.0",
+    "sillyname": "^0.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
