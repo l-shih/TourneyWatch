@@ -81,9 +81,15 @@ module.exports = (knex, owjs) => {
       });
   }
 
-  router.get("/:id/new", (req, res) => {
+  router.get("/:id/enroll", (req, res) => {
     const tournamentID = req.params.id;
     const currUserID = req.session.userID;
+
+    if (!currUserID) {
+      // figure out better way to handle if not logged in 
+      res.redirect("/users/login");
+    }
+    
     knex
       .select("battlenet_id", "email")
       .from("users")
@@ -98,13 +104,14 @@ module.exports = (knex, owjs) => {
           .where({"tournaments.id": tournamentID})
           .then( async (results) => {
             const enrolledPlayers = await playersEnrolled(tournamentID);
+
             const started = results[0].is_started;
             const teamCount = results[0].no_of_teams;
             const creatorUserID = results[0].creator_user_id;
             const tournamentName = results[0].name;
             const tournamentDescr = results[0].description;
             const isReady = (enrolledPlayers.length === teamCount * 6);
-             
+            
             res.render("tournament_enroll", {
               email: currEmail,
               teamCount: teamCount,

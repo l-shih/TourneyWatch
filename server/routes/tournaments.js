@@ -364,6 +364,8 @@ module.exports = (knex, _, env) => {
                   initializeBrackets(teamArray, results[0].no_of_teams, tournamentID);
                   const teamAssigned = assignPlayersToTeams(playersArray, teamArray);
                   assignToTeams(teamAssigned);
+
+                 
                   res.redirect(`/tournaments/${tournamentID}/admin`);
                 });
             });
