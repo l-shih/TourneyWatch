@@ -256,7 +256,6 @@ module.exports = (knex, _, env) => {
           const isReady = (enrolledPlayers.length === teamCount * 6);
 
           if (isReady && started) {
-            initializeBrackets(teamArray, results[0].no_of_teams, tournamentID);
             res.render("tournament_view", {
               teamRoster: getTeamRoster(tournamentID),
               playerCount: enrolledPlayers.length,
@@ -337,7 +336,7 @@ module.exports = (knex, _, env) => {
     //   res.sendStatus(400);
     //   return;
     // }
-    console.log(tournamentID)
+
     // Lists players from highest level to lowest, then assigns a team ID #
     // to each player via an array
     knex
@@ -352,7 +351,7 @@ module.exports = (knex, _, env) => {
           res.sendStatus(404);
         } else {
           knex
-            .select("id", "level")
+            .select("id", "level", "first_role", "first_role_time_played", "second_role", "second_role_time_played")
             .from("tournament_enrollments")
             .where({tournament_id: tournamentID})
             .orderBy("level", "desc")
