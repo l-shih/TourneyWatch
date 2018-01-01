@@ -263,24 +263,23 @@ module.exports = (knex, owjs) => {
 
   // Adds a new line in to enrollments for each new player
   // given that their battlenet ID exists
-  router.post("/:id/enroll/", (req, res) => {
+  router.post("/1/enroll/", (req, res) => {
     const currUserID = req.session.userID;
     const tournamentID = req.params.id;
     knex
       .select("id", "battlenet_id")
       .from("users")
-      .where({id: currUserID})
       .then( async (results) => {
-        if(results.length === 0){
-          // STRETCH: Show 'Invalid Battlenet ID' error page
-          res.sendStatus(404);
-        } else{
-          console.log(results[0].battlenet_id);
-
-          await getPlayersInfo(results[0].battlenet_id, tournamentID, currUserID)
-
-          res.redirect(`/tournaments/${tournamentID}`);
-        }
+          for (let u = 0; u < results.length; u++ ){
+            try {
+              throw await getPlayersInfo(results[u].battlenet_id, 1, results[u].id);
+            }
+            catch(e) {
+              console.log(e);
+            }
+            
+          }
+          res.sendStatus(200);
       });
   });
 
