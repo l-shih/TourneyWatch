@@ -1,0 +1,53 @@
+/* EXAMPLE 8 - Center on mobile*/
+@media only screen and (max-width : 768px){
+  .example-8 .navbar-brand {
+  padding: 0px;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+  }
+  .example-8 .navbar-brand>img {
+    height: 100%;
+    width: auto;
+    padding: 7px 14px; 
+  }
+}
+
+nav.navbar.navbar-dark img {
+  max-height: 50px;
+  max-width: 80%;
+  float: right;
+  border: none;
+}
+
+button.navbar-toggle {
+  float: left;
+}
+
+div.navbar-header {
+  width: 100%;
+}
+
+div#navbar8 > ul > li {
+  width:50%;
+}
+
+/* EXAMPLE 8 - Center Background */
+.example-8 .navbar-brand {
+  width: 200px;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+}
+
+nav.navbar.navbar-dark{
+  position: fixed;
+  width:100%;
+  z-index: 1;
+  background: #191E21;
+  color: #F7931D;
+  text-align: center;
+  font-size: 30px;
+}

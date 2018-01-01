@@ -41,7 +41,7 @@ module.exports = (knex, owjs) => {
   }
 
 
-    /**
+  /**
    * Updates the team
    * @param  {int} userID    userID of user
    * @param  {int} newTeamID [description]
@@ -275,10 +275,7 @@ module.exports = (knex, owjs) => {
           // STRETCH: Show 'Invalid Battlenet ID' error page
           res.sendStatus(404);
         } else{
-          console.log(results[0].battlenet_id);
-
           await getPlayersInfo(results[0].battlenet_id, tournamentID, currUserID)
-
           res.redirect(`/tournaments/${tournamentID}`);
         }
       });
