@@ -342,3 +342,15 @@ img.avatar {
   margin-right: 6px;
   border-radius: 3px;
 }
+
+div.container.player > span {
+  top: 3px;
+  font-size: 18px;
+}
+
+img.player-class{
+  border: none;
+  height: 25px;
+  width: 25px;
+  margin-right: 2px;
+}
