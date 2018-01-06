@@ -324,16 +324,36 @@ module.exports = (knex, _, env, mailGun, owjs) => {
     console.log(req.session.email)
     if (!req.session.email) {
       // Figure out better way to tell user that they need to sign in to save a score
+      console.log('not a user');
       res.sendStatus(400);
     } else {
-      console.log('Updating DB brackets');
-      console.log(req.body.tournamentID + req.body.bracketData);
-      return knex("tournaments")
-        .where({"id": req.body.tournamentID})
-        .update({"brackets": req.body.bracketData})
-        .then(() => {console.log('Bracket data updated')});
+      knex
+      .select('creator_user_id')
+      .where({id: req.body.tournamentID})
+      .from('tournaments')
+      .then((results) =>{
+        if(results.length === 0){
+          return res.sendStatus(404);
+        } if (results[0].creator_user_id === req.session.userID){
+          knex("tournaments")
+          .where({"id": req.body.tournamentID})
+          .update({"brackets": req.body.bracketData})
+          .then(() => {
+            
+            return res.sendStatus(200);
+          });
+        } else {
+          return res.sendStatus(400);
+        }
+      });
     }
   });
+
+ 
+
+
+
+
 
   router.get("/:id/admin", (req, res) => {
     const tournamentID = parseInt(req.params.id);

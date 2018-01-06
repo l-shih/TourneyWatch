@@ -22,7 +22,7 @@ $(document).ready(function () {
     }).catch((err) => {
       //TO DO: make look nice with a flash message or something
       alert('error!');
-      console.log(err.status);
+      console.log('client error msg', err.responseText);
     });
     //empty the DOM and insert a loader
     $('.container').empty();
