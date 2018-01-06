@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-  // EVERYBODY
   function renderTeamCards(teamRoster) {
     const teamNames = Object.keys(teamRoster)
     $(".tournamentheader").append(`
@@ -69,17 +68,17 @@ $(document).ready(function () {
     alert(`${link} has been copied!`)
   });
 
-  // twitch  div sliding functionality
-  let showTwitch = false;
-  $("#twitch-button").click(function() {
-    if (!showTwitch) {
-      console.log('show twitch');
-      showTwitch = true;
-      $(".container-fluid").css({"display": "block"});
+  // share button  div sliding functionality
+  let showShare = false;
+  $("#share-button").click(function() {
+    if (!showShare) {
+      console.log('show share');
+      showShare = true;
+      $("#share").css({"display": "block"});
     } else {
-      console.log('hide char');
-      showTwitch =false
-      $(".container-fluid").css({"display": "none"});
+      console.log('hide share');
+      showShare =false
+      $("#share").css({"display": "none"});
     }
   });
 

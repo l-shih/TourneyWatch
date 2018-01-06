@@ -99,6 +99,13 @@ nav.navbar.navbar-dark img{
   margin: 0 auto;
 }
 
+nav.navbar.navbar-dark a{
+  max-height: 50px;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+
 nav p{
   font-size: 12px;
   color: white;
@@ -294,15 +301,10 @@ button.start-tournament:hover {
 /* share button on tournament_view */
 
 #share {
-  -webkit-transition: width 0.65s ease;
-  -moz-transition: width 0.65s ease;
-  -o-transition: width 0.65s ease;
-  transition: width 0.65s ease;
-  
-  display: inline-block;
+  display: none;
   overflow: hidden;
-  white-space: nowrap;
-  vertical-align: middle;
+  /* white-space: nowrap; */
+  /* vertical-align: middle; */
   line-height: 30px;
   height: 45px;
 
@@ -310,9 +312,9 @@ button.start-tournament:hover {
   
 }
 
-#share.in {
+/* #share.in {
   width: 298px;
-}
+} */
 
 #share > * {
   position: relative;
@@ -322,7 +324,7 @@ button.start-tournament:hover {
 #share > i,  #share > a{
   font-size: 30px;
   color: #F7931D;
-  top: calc(50% - 17px);
+  /* top: calc(50% - 17px); */
 }
 
 #share > a {
