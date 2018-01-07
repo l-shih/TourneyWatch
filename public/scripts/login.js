@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
   $('.submit').click(function(e){
 
     $.ajax({
@@ -43,7 +44,7 @@ $(document).ready(function () {
       } else {
         $('.login-alert').append(`
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>OOPS!</strong> Your E-mail and Password don't match!
+        <strong>OOPS!</strong> Something went wrong with your request!
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

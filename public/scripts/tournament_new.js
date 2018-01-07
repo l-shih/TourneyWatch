@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+  console.log(errorMsg);
+
+  if (errorMsg === "none") {
+    console.log("no error");
+  } else {
+    console.log('you hit error', errorMsg);
+  }
+
   // will need to pull in tournamentID somehow to make this work
   // $("#new-tournament-form").on('submit', function (event) {
   //   event.preventDefault();
