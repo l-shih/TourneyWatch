@@ -96,6 +96,8 @@ module.exports = (knex, bcrypt, cookieSession, owjs) => {
   //user registers
   router.post("/new", (req, res) => {
     console.log(req.body);
+    console.log(req.params)
+    console.log(req.body.email)
     const email = req.body.email.trim().toLowerCase();
     const password = req.body.password.trim();
     const battlenetID = req.body.battlenet.trim();
@@ -132,13 +134,11 @@ module.exports = (knex, bcrypt, cookieSession, owjs) => {
                 });
             })
             .catch((err) => {
-              console.log('owjs is freaking out')
-              // res.sendStatus(400);
-              res.status(400).send("owjs failed");
+              res.status(400).send("Our Systems are having an Error, please try back later!");
             })
           //stuff tha relies on it
         } else {
-          res.send('hi')
+          res.send(400).send("tteeeeest")
         }
       });
   });

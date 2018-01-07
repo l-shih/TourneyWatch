@@ -187,10 +187,11 @@ module.exports = (knex, _, env, mailGun, owjs) => {
   // Goes to new tournaments page
   router.get('/new', (req, res) => {
     if (!req.session.email) {
-      // STRETCH: "Forbidden" error page
-      res.sendStatus(403);
+      // STRETCH: "Forbidden" error pag
+      res.render("login", {email: req.session.email, error: "ssssssssss"})
+      return;
     }
-    res.render('tournament_new',{email: req.session.email, userID: req.session.userID});
+    res.render('tournament_new',{email: req.session.email, userID: req.session.userID, error: "none"});
   });
 
   // Creates new tournament
@@ -210,7 +211,7 @@ module.exports = (knex, _, env, mailGun, owjs) => {
       console.log(checkInvalidCharacters(twitchChannel))
       console.log(checkInvalidCharacters(description))
       console.log(checkInvalidCharacters(name))
-      res.sendStatus(400);
+      res.render("tournament_new", {error: "Wrong stuff bro", email: req.session.email, userID: req.session.userID})
       return;
     }
     knex
@@ -320,6 +321,7 @@ module.exports = (knex, _, env, mailGun, owjs) => {
   });
 
   // Updates bracket data in the DB
+  // TO DO: add security to this
   router.post("/update", (req, res) => {
     console.log(req.session.email)
     if (!req.session.email) {
@@ -339,6 +341,7 @@ module.exports = (knex, _, env, mailGun, owjs) => {
           .where({"id": req.body.tournamentID})
           .update({"brackets": req.body.bracketData})
           .then(() => {
+            console.log("Owner has saved")
             
             return res.sendStatus(200);
           });
