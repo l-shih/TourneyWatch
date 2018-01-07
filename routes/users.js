@@ -124,13 +124,14 @@ module.exports = (knex, bcrypt, cookieSession, owjs) => {
                 .insert({email: email, password: bcrypt.hashSync(password, 10), battlenet_id: battlenetID, avatar: results.profile.avatar})
                 .into('users')
                 .returning('id')
-                .then((results) => {
-                  req.session.userID = results[0];
+                .then(async (results) => {
+
+                  req.session.userID = await results[0];
                   req.session.email = email;
                   req.session.battlenetID = battlenetID;
                   console.log('just registered, am results', results)
                   console.log('IN /NEW', req.session)
-                  res.redirect("/");
+                  res.redirect(`/users/${req.session.userID}`);
                 });
             })
             .catch((err) => {
@@ -168,7 +169,7 @@ module.exports = (knex, bcrypt, cookieSession, owjs) => {
           req.session.userID = results[0].id;
           console.log(results);
           console.log(req.session);
-          res.redirect("/");
+          res.redirect(`${req.session.userID}`);
         } else {
           res.sendStatus(403);
         }
@@ -184,7 +185,7 @@ module.exports = (knex, bcrypt, cookieSession, owjs) => {
 
 
   router.get("/:id", (req, res) => {
-    const email = req.session.email
+    const email = req.session.email;
     const userID = parseInt(req.params.id);
 
     if (!email) {

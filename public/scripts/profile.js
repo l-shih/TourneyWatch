@@ -84,6 +84,8 @@ $(document).ready(function () {
     const passwordConfirm = $('#entry-password-confirm').val();
     const battlenet = $('#entry-battlenet').val()
 
+    
+
     if(password !== passwordConfirm){
       alert('Passswords do not match!');
       return;
@@ -104,8 +106,7 @@ $(document).ready(function () {
       console.log(err.status);
     });
     //empty the DOM and insert a loader
-    $('.container').empty();
-    $('.container').append('<div class="loader"></div>');
+
 
 
   });
