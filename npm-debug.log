@@ -1,22 +1,20 @@
 0 info it worked if it ends with ok
 1 verbose cli [ '/home/vagrant/.nvm/versions/node/v6.9.5/bin/node',
 1 verbose cli   '/home/vagrant/.nvm/versions/node/v6.9.5/bin/npm',
-1 verbose cli   'run',
-1 verbose cli   'knex',
-1 verbose cli   'seed:run' ]
+1 verbose cli   'start' ]
 2 info using npm@3.10.10
 3 info using node@v6.9.5
-4 verbose run-script [ 'preknex', 'knex', 'postknex' ]
-5 info lifecycle node-skeleton@1.0.0~preknex: node-skeleton@1.0.0
-6 silly lifecycle node-skeleton@1.0.0~preknex: no script for preknex, continuing
-7 info lifecycle node-skeleton@1.0.0~knex: node-skeleton@1.0.0
-8 verbose lifecycle node-skeleton@1.0.0~knex: unsafe-perm in lifecycle true
-9 verbose lifecycle node-skeleton@1.0.0~knex: PATH: /home/vagrant/.nvm/versions/node/v6.9.5/lib/node_modules/npm/bin/node-gyp-bin:/vagrant/final-project/node_modules/.bin:/home/vagrant/.nvm/versions/node/v6.9.5/bin:/home/vagrant/.rvm/gems/ruby-2.3.3/bin:/home/vagrant/.rvm/gems/ruby-2.3.3@global/bin:/home/vagrant/.rvm/rubies/ruby-2.3.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/vagrant/.rvm/bin:/home/vagrant/.rvm/bin
-10 verbose lifecycle node-skeleton@1.0.0~knex: CWD: /vagrant/final-project
-11 silly lifecycle node-skeleton@1.0.0~knex: Args: [ '-c', 'knex "seed:run"' ]
-12 silly lifecycle node-skeleton@1.0.0~knex: Returned: code: 1  signal: null
-13 info lifecycle node-skeleton@1.0.0~knex: Failed to exec knex script
-14 verbose stack Error: node-skeleton@1.0.0 knex: `knex "seed:run"`
+4 verbose run-script [ 'prestart', 'start', 'poststart' ]
+5 info lifecycle node-skeleton@1.0.0~prestart: node-skeleton@1.0.0
+6 silly lifecycle node-skeleton@1.0.0~prestart: no script for prestart, continuing
+7 info lifecycle node-skeleton@1.0.0~start: node-skeleton@1.0.0
+8 verbose lifecycle node-skeleton@1.0.0~start: unsafe-perm in lifecycle true
+9 verbose lifecycle node-skeleton@1.0.0~start: PATH: /home/vagrant/.nvm/versions/node/v6.9.5/lib/node_modules/npm/bin/node-gyp-bin:/vagrant/final-project/node_modules/.bin:/home/vagrant/.nvm/versions/node/v6.9.5/bin:/home/vagrant/.rvm/gems/ruby-2.3.3/bin:/home/vagrant/.rvm/gems/ruby-2.3.3@global/bin:/home/vagrant/.rvm/rubies/ruby-2.3.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/vagrant/.rvm/bin:/home/vagrant/.rvm/bin
+10 verbose lifecycle node-skeleton@1.0.0~start: CWD: /vagrant/final-project
+11 silly lifecycle node-skeleton@1.0.0~start: Args: [ '-c', 'node server.js' ]
+12 silly lifecycle node-skeleton@1.0.0~start: Returned: code: 1  signal: null
+13 info lifecycle node-skeleton@1.0.0~start: Failed to exec start script
+14 verbose stack Error: node-skeleton@1.0.0 start: `node server.js`
 14 verbose stack Exit status 1
 14 verbose stack     at EventEmitter.<anonymous> (/home/vagrant/.nvm/versions/node/v6.9.5/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
 14 verbose stack     at emitTwo (events.js:106:13)
@@ -29,18 +27,18 @@
 15 verbose pkgid node-skeleton@1.0.0
 16 verbose cwd /vagrant/final-project
 17 error Linux 4.4.0-21-generic
-18 error argv "/home/vagrant/.nvm/versions/node/v6.9.5/bin/node" "/home/vagrant/.nvm/versions/node/v6.9.5/bin/npm" "run" "knex" "seed:run"
+18 error argv "/home/vagrant/.nvm/versions/node/v6.9.5/bin/node" "/home/vagrant/.nvm/versions/node/v6.9.5/bin/npm" "start"
 19 error node v6.9.5
 20 error npm  v3.10.10
 21 error code ELIFECYCLE
-22 error node-skeleton@1.0.0 knex: `knex "seed:run"`
+22 error node-skeleton@1.0.0 start: `node server.js`
 22 error Exit status 1
-23 error Failed at the node-skeleton@1.0.0 knex script 'knex "seed:run"'.
+23 error Failed at the node-skeleton@1.0.0 start script 'node server.js'.
 23 error Make sure you have the latest version of node.js and npm installed.
 23 error If you do, this is most likely a problem with the node-skeleton package,
 23 error not with npm itself.
 23 error Tell the author that this fails on your system:
-23 error     knex "seed:run"
+23 error     node server.js
 23 error You can get information on how to open an issue for this project with:
 23 error     npm bugs node-skeleton
 23 error Or if that isn't available, you can get their info via:

@@ -62,14 +62,14 @@ background-color: #191E21;
   cursor: pointer;
 }
 
-.add-highlight{
+.add-highlights{
  text-align: center;
-  margin-left: -160px !important;
-  margin-top: 10px !important;
+  width:84%
 }
 
 .send-email{
     text-align: center; 
+    width:100%;
 }
 
 input.send-email{
