@@ -192,13 +192,13 @@ $(document).ready(() => {
                 <tr>
                   <td>${player1.battlenet_id}</td>
                   <td><img class="player-class" src="/images/icon-${player1.first_role}.png" title="${player1.first_role}"></td>
-                  <td><img class="player-class" src="/images/icon-${player1.first_role}.png" title="${player1.first_role}"></td>
+                  <td><img class="player-class" src="/images/icon-${player1.second_role}.png" title="${player1.second_role}"></td>
                   <td>${player1.level}</td>
                 </tr>
                 <tr>
                   <td>${player2.battlenet_id}</td>
                   <td><img class="player-class" src="/images/icon-${player2.first_role}.png" title="${player2.first_role}"></td>
-                  <td><img class="player-class" src="/images/icon-${player2.first_role}.png" title="${player2.first_role}"></td>
+                  <td><img class="player-class" src="/images/icon-${player2.second_role}.png" title="${player2.second_role}"></td>
                   <td>${player2.level}</td>
                 </tr>
               </tbody>
