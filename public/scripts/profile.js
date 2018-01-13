@@ -62,7 +62,6 @@ $(document).ready(function () {
     }).catch((err) => {
       //TO DO: make look nice with a flash message or something
       alert('error!');
-      console.log(err.status);
     });
 
   $('.submit').click(function(e){
@@ -104,7 +103,6 @@ $(document).ready(function () {
           window.location.replace(`/users/${userID}`); 
         });
       }, 4000);
-      console.log(err);
     });
   });
 });

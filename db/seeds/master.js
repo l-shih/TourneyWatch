@@ -2,8 +2,8 @@ exports.seed = async function(knex, promise){
   const tournamentTask = (async () => {
     await knex('tournaments').del();
     return knex('tournaments').returning('*').insert([
-      {name: 'Lighthouse Overwatch Tournament', description: 'A test tournament to demonstrate our web app!', no_of_teams: 8, creator_user_id: 84, is_started: false, twitch_channel: 'WhtMage', date: '01/25/2018'},
-      {name: 'Pepsi Overwatch Tournament', description: 'El snort testosterone trophy driving gloves handsome, dis el snort handsome gent testosterone trophy Fallen eyebrow driving.', no_of_teams: 8, creator_user_id: 85, is_started: false, twitch_channel: 'WhtMage', date: '01/18/2018'},
+      {name: 'Lighthouse Overwatch Tournament', description: 'A test tournament to demonstrate our web app!', no_of_teams: 8, creator_user_id: 84, is_started: false, twitch_channel: 'overwatchleague', date: '01/25/2018'},
+      {name: 'Pepsi Overwatch Tournament', description: 'El snort testosterone trophy driving gloves handsome, dis el snort handsome gent testosterone trophy Fallen eyebrow driving.', no_of_teams: 8, creator_user_id: 85, is_started: false, twitch_channel: 'overwatchleague', date: '01/18/2018'},
       {name: 'Vancouver Tournament 2018', description: 'Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.', no_of_teams: 8, creator_user_id: 84, is_started: false, twitch_channel: 'WhtMage', date: '01/09/2018'},
       {name: 'SFU Overwatch Club', description: 'Wes Anderson umami biodiesel YOLO, Terry Richardson helvetica tousled street art master cleanse selfies Godard cornhole 8-bit pork belly scenester.', no_of_teams: 16, creator_user_id: 85, is_started: false, twitch_channel: 'WhtMage', date: '02/02/2018'},
     ]);

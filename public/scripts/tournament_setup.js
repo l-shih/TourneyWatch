@@ -1,10 +1,8 @@
 
 $(document).ready(function () {
-  console.log('JS is running')
   // Will function for when a tournament has not started, or
   // if a person drops out after a tournament has started
   function renderPlayerCount(playerRoster) {
-    // console.log('Roster: ',playerRoster);
     const playerNames = playerRoster.undefined;
     // if !playerNames, a person dropped out after
     // tournament has started
@@ -26,7 +24,6 @@ $(document).ready(function () {
       })
     } else {
       Object.keys(playerNames).forEach((i) => {
-        console.log(playerNames[i]);
           $(".player-table-stats").append(`
             <tr data-player-id="${playerNames[i].battlenet_id}">
               <td scope="row">${Number([i]) + 1}</td>
@@ -44,13 +41,11 @@ $(document).ready(function () {
   //IMPORTANT <td><img src="${playerNames[i].avatar}" class="avatar"> ${playerNames[i].battlenet_id}</td>
 
   function loadTable() {
-    console.log('tournamentID')
     $.ajax({
       url: `/enrollments/enrollments.json`,
       data: {tournamentID: tournamentID},
       method: 'GET'
     }).done((playerRoster) => {
-      console.log(playerRoster);
       renderPlayerCount(playerRoster);
     });
   }
@@ -62,11 +57,9 @@ $(document).ready(function () {
   let showShare = false;
   $("#share-button").click(function() {
     if (!showShare) {
-      console.log('show twitch');
       showShare = true;
       $("#share").css({"display": "block"});
     } else {
-      console.log('hide char');
       showShare =false
       $("#share").css({"display": "none"});
     }

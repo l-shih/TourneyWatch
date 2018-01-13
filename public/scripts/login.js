@@ -14,7 +14,6 @@ $(document).ready(function () {
         method: "GET"
       }).done((userObj) => {
         const userID = userObj.id
-        console.log('i am in client - userID', userID)
         window.location.replace(`/users/${userID}`);
       })
     }).catch((err) => {

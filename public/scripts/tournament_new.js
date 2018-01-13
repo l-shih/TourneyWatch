@@ -1,11 +1,9 @@
 $(document).ready(function () {
 
   $("#datepicker").change((e) => {
-    console.log('date checking')
     const dateString = $('#datepicker').val();
     const selectedDate = moment(dateString, "MM/DD/YYYY");
     const nowDate = new Date();
-    console.log(selectedDate < nowDate);
     if (selectedDate < nowDate) {
       $('.invalid-date-alert').append(`
         </br>

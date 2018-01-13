@@ -23,7 +23,6 @@ module.exports = (knex) => {
       .from("highlights")
       .where({tournament_id : req.params.id})
       .then((results) => {
-        // console.log(playerStats[0]);
         res.send(results);
       });
   });
@@ -50,7 +49,6 @@ module.exports = (knex) => {
           } catch(err){
             return res.sendStatus(400);
           }
-          console.log(req.body);
           const youtubeID = getYoutubeID(req.body.url)
           knex
             .insert({name: req.body.name, url: youtubeID, tournament_id: req.params.id})
