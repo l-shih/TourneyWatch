@@ -324,7 +324,6 @@ module.exports = (knex, _, env, mailGun, owjs) => {
       .orderBy("team_id", "ascd")
       .then((playerStats) => {
         const teamRoster = _.groupBy(playerStats, "team_name");
-        console.log('roster ',teamRoster);
         res.send(teamRoster);
       });
   });

@@ -74,21 +74,14 @@ module.exports = (knex, owjs, _, moment) => {
       const team2 = results[1].team_id;
       const player1ID = results[0].id;
       const player2ID = results[1].id;
-      console.log('attempting to swap!');
-      console.log(team1 + ' ' + player1ID + ' ' + results[0].battlenet_id);
-      console.log(team2 + ' ' + player2ID + ' ' + results[1].battlenet_id);
       knex("enrollments")
         .where({"user_id": player1ID})
         .update({"team_id": team2})
-        .then(() => {
-          console.log('swapped!');
-        });
+        .then(() => {});
       knex("enrollments")
         .where({"user_id": player2ID})
         .update({"team_id": team1})
-        .then(() => {
-          console.log('swapped!');
-        });
+        .then(() => {});
 
      });
  }
@@ -163,9 +156,7 @@ module.exports = (knex, owjs, _, moment) => {
             'k_d_ratio': killsDeathRatio(data),
           })
           .into("enrollments")
-          .then(() => {
-            console.log('done using owjs')
-          });
+          .then(() => {});
     });
   }
 
@@ -173,8 +164,6 @@ module.exports = (knex, owjs, _, moment) => {
     const tournamentID = req.params.id;
     const currUserID = req.session.userID;
     const email = req.session.email;
-
-    console.log('i am in the get route', req.session);
 
     if (tournamentID) {
       knex
@@ -206,7 +195,6 @@ module.exports = (knex, owjs, _, moment) => {
           .where({id: currUserID})
           .then((results) => {
             if (results.length > 0 ) {
-              console.log('cant find')
               res.sendStatus(400)
             } else {
               knex
@@ -225,8 +213,6 @@ module.exports = (knex, owjs, _, moment) => {
                 const isReady = (enrolledPlayers.length === teamCount * 6);
 
                 if (currBattlenetID === tournamentCreator) {
-                  console.log(tournamentCreator);
-                  console.log('creator');
                   // Flash Message: "You cannot play in a tournament you've made"
                   res.sendStatus(400);
                 } else {
@@ -260,7 +246,6 @@ module.exports = (knex, owjs, _, moment) => {
       .innerJoin("tournaments", "tournaments.id", "enrollments.tournament_id")
       .where({'users.battlenet_id': req.query.bnetID, tournament_id : req.params.id})
       .then((playerStats) => {
-        // console.log(playerStats[0]);
         res.send(playerStats[0]);
       });
   });
@@ -274,14 +259,11 @@ module.exports = (knex, owjs, _, moment) => {
       .orderBy('team_id', 'desc')
       .where({'enrollments.tournament_id': req.params.id})
       .then((teamNames) => {
-        console.log(teamNames);
         res.send(teamNames);
       });
   });
 
   router.post("/:id/swap", (req, res) => {
-    console.log(req.body);
-
     const tournamentID = req.params.id
     const bnetID1 = req.body.bnetID1;
     const bnetID2 = req.body.bnetID2;
@@ -294,7 +276,6 @@ module.exports = (knex, owjs, _, moment) => {
       .from("tournaments")
       .where({id: tournamentID})
       .then((results) => {
-        // console.log('Tournament ID, ' + results[0].id);
         if(results.length === 0) {
           res.sendStatus(404);
         } if(results[0].creator_user_id === req.session.userID){
@@ -319,7 +300,6 @@ module.exports = (knex, owjs, _, moment) => {
         if(results.length === 0){
           res.sendStatus(404);
         } else{
-          console.log(results[0].battlenet_id);
           //TO DO rename
           await getPlayersInfo(results[0].battlenet_id, tournamentID, currUserID)
 
