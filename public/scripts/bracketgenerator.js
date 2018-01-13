@@ -53,8 +53,6 @@ $(function () {
       url: "/tournaments/brackets.json",
       data: {tournamentID: tournamentID},
       success: function (results) {
-
-        console.log('i am in bracketgenerator', results);
         container.bracket({
             init: results.brackets,
             save: saveFn,
@@ -107,7 +105,6 @@ $(function () {
 
     $("#target").click(function () {
         var data = container.bracket('data')
-        console.log("data", data)
         saveFn(data);
     });
 

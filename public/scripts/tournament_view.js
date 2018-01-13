@@ -77,11 +77,9 @@ $(document).ready(() => {
   let showShare = false;
   $('#share-button').click(() => {
     if (!showShare) {
-      console.log('show twitch');
       showShare = true;
       $('#share').css({ display: 'block' });
     } else {
-      console.log('hide char');
       showShare = false;
       $('#share').css({ display: 'none' });
     }
@@ -91,11 +89,9 @@ $(document).ready(() => {
   let showTwitch = false;
   $('#twitch-button').click(() => {
     if (!showTwitch) {
-      console.log('show twitch');
       showTwitch = true;
       $('.container-fluid').css({ display: 'block' });
     } else {
-      console.log('hide char');
       showTwitch = false;
       $('.container-fluid').css({ display: 'none' });
     }
@@ -120,14 +116,12 @@ $(document).ready(() => {
       }
       highlightsString += '</div>';
       $('.highlights-container').append(highlightsString);
-      console.log(highlightsString);
       $('.highlights').slick();
       modalHighlights.style.display = 'block';
     });
   };
 
   window.onclick = function (event) {
-    console.log('spectator clicks');
     if (event.target == modalHighlights) {
       $('.highlights-container').empty();
       modalHighlights.style.display = 'none';
@@ -217,8 +211,6 @@ $(document).ready(() => {
         url: `/enrollments/${tournamentID}/teamnames.json`,
         method: 'GET',
       }).done((teamNames) => {
-        console.log(teamNames);
-        console.log(teamNames.length);
         for (let i = 0; i < teamNames.length; i++) {
           $('#team-ids').append(`<option value="${teamNames[i].team_id}">${teamNames[i].team_name}</option>`);
         }
@@ -403,7 +395,6 @@ $(document).ready(() => {
       }).done((playerRoster) => {
         const teams = [];
         const averageLevels = [];
-        console.log(playerRoster);
 
         for (const team in playerRoster) {
           let totalTeamLevel = 0;
@@ -413,7 +404,6 @@ $(document).ready(() => {
           averageLevels.push((totalTeamLevel / 6).toFixed(2));
           teams.push(team);
         }
-        console.log('teams', teams);
         const ctx = document.getElementById('myChart');
         const myChart = new Chart(ctx, {
           type: 'bar',
@@ -473,11 +463,9 @@ $(document).ready(() => {
       });
 
       if (!showChart) {
-        console.log('show char');
         showChart = true;
         $('.avg-team-levels').css({ display: 'block' });
       } else {
-        console.log('hide char');
         showChart = false;
         $('.avg-team-levels').css({ display: 'none' });
       }
@@ -486,7 +474,6 @@ $(document).ready(() => {
     // When the user clicks anywhere outside of the modal,
     // modal will close, and information inside will be cleared
     window.onclick = function (event) {
-      console.log('is owner clicks');
       if (event.target.className === 'player' || event.target.className === 'player selected') {
         if (($('.selected').length == 1 && $(event.target).data().team === $('.selected').data().team) && $('.selected').text() !== $(event.target).text()) {
           return;

@@ -222,13 +222,7 @@ module.exports = (knex, _, env, mailGun, owjs) => {
     const description = req.body.description;
     const twitchChannel = req.body.channel_name;
     const date = req.body.date;
-    console.log(req.body);
-
-   // STRETCH: Show 'That name has been taken' error page
     if(!checkInvalidCharacters(twitchChannel) || !checkInvalidCharacters(description) || !checkInvalidCharacters(name)){
-      console.log(checkInvalidCharacters(twitchChannel))
-      console.log(checkInvalidCharacters(description))
-      console.log(checkInvalidCharacters(name))
       return res.status(400).send('Invalid characters');
     }
     if(!date){
@@ -260,7 +254,6 @@ module.exports = (knex, _, env, mailGun, owjs) => {
               return res.send(tournamentID);
             });
         } else {
-          console.log("erroring here")
           return res.status(400).send('Team already exists');;
         }
       });
@@ -274,7 +267,6 @@ module.exports = (knex, _, env, mailGun, owjs) => {
       .from("tournaments")
       .where({id: tournamentID})
       .then((results) => {
-        console.log('am in brackets.json', results);
         res.json(results[0]);
       });
   });
@@ -283,11 +275,6 @@ module.exports = (knex, _, env, mailGun, owjs) => {
   router.get("/roles.json", (req, res) => {
     const tournamentID = req.query.tournamentID;
     const roles = ['offense', 'defense', 'tank', 'suport'];
-    // if(req.session.email !== process.env.ADMIN_EMAIL) {
-    //   // STRETCH: "Forbidden" error page
-    //   res.sendStatus(403);
-    // }
-    // Gets player stats for each team in a specific tournament
     knex
       .select("users.battlenet_id", "team_id", "level", "role_summary", 'teams.team_name')
       .from("enrollments")
@@ -309,11 +296,6 @@ module.exports = (knex, _, env, mailGun, owjs) => {
 
   router.get("/cards.json", (req, res) => {
     const tournamentID = req.query.tournamentID;
-    // if(req.session.email !== process.env.ADMIN_EMAIL) {
-    //   // STRETCH: "Forbidden" error page
-    //   res.sendStatus(403);
-    // }
-    // Gets player stats for each team in a specific tournament
     knex
       .select("tournaments.name", "users.battlenet_id",'teams.team_name', "team_id", "level", "games_won", "medal_gold", "medal_silver", "medal_bronze", "first_role", "users.id", "users.avatar")
       .from("enrollments")
@@ -331,11 +313,6 @@ module.exports = (knex, _, env, mailGun, owjs) => {
   // Tournament bracket and teams page
   router.get('/brackets.json', (req, res) => {
     const tournamentID = req.query.tournamentID;
-    console.log('in bracekt.json, am tournid', tournamentID);
-    // if(req.session.email !== process.env.ADMIN_EMAIL) {
-    //   // STRETCH: "Forbidden" error page
-    //   res.sendStatus(403);
-    // }
     knex
       .select("brackets")
       .from("tournaments")
@@ -348,7 +325,6 @@ module.exports = (knex, _, env, mailGun, owjs) => {
   // Updates bracket data in the DB
   // TO DO: add security to this
   router.post("/update", (req, res) => {
-    console.log(req.session.email)
     if (!req.session.email) {
       // Figure out better way to tell user that they need to sign in to save a score
       res.sendStatus(400);
@@ -365,8 +341,6 @@ module.exports = (knex, _, env, mailGun, owjs) => {
           .where({"id": req.body.tournamentID})
           .update({"brackets": req.body.bracketData})
           .then(() => {
-            console.log("Owner has saved")
-
             return res.sendStatus(200);
           });
         } else {
@@ -396,7 +370,6 @@ module.exports = (knex, _, env, mailGun, owjs) => {
           const twitchName = results[0].twitch_channel;
           if (isReady && started) {
             res.render("tournament_view", {
-              // teamRoster: getTeamRoster(tournamentID),
               playerCount: enrolledPlayers.length,
               tournamentDescr: results[0].description,
               tournamentName: results[0].name,
@@ -461,13 +434,12 @@ module.exports = (knex, _, env, mailGun, owjs) => {
               const twitchChannel = `https://player.twitch.tv/?channel=${results[0].twitch_channel}`;
               const twitchChat = `http://www.twitch.tv/${results[0].twitch_channel}/chat?darkpopout`;
               const twitchName = results[0].twitch_channel;
-              console.log('This should be the results: ', results)
               if(isOwner) {
                 res.redirect(`/tournaments/${tournamentID}/admin`);
               }
 
               if (isReady && started) {
-                console.log('if you see me i am ready and have started')
+
                 res.render("tournament_view", {
                   playerCount: enrolledPlayers.length,
                   email: req.session.email,
@@ -483,7 +455,6 @@ module.exports = (knex, _, env, mailGun, owjs) => {
                   twitchName: twitchName
                 })
               } else {
-                console.log("if you see me i am not started and am not ready, or both")
                 res.render("tournament_notready", {
                   tournamentName: results[0].name,
                   playerCount: enrolledPlayers.length,
@@ -522,10 +493,7 @@ module.exports = (knex, _, env, mailGun, owjs) => {
       .from("tournaments")
       .where({id: tournamentID})
       .then((results) => {
-        console.log(results)
-        // console.log('Tournament ID, ' + results[0].id);
         if(results.length === 0 ) {
-          // STRETCH: Show 'No tournament of that name found' error page
           res.render("404", {email: email, userID: req.session.userID,});
         } else {
           knex
@@ -594,7 +562,6 @@ module.exports = (knex, _, env, mailGun, owjs) => {
             };
             //Sending the email via mailgun-js
             mailGun.messages().send(data, function (error,body) {
-              //Logging error/send messages
               console.log(body);
             })
           }
