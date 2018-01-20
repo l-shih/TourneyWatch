@@ -6,13 +6,22 @@ body,html{
 body {
   background: #191E21 url("/images/overwatch-logo.jpeg") 50% 50% no-repeat;
   background-size: cover;
+  background-attachment: fixed;
+  height: 100%;
+  overflow: hidden;
   }
 
 main {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
   font-family: 'Oswald', sans-serif;
   color: white;
   width: 1050px;
-  height: 100vh;
+  height: 100%;
   overflow-y: scroll;
   margin: auto;
   padding-right:20px;

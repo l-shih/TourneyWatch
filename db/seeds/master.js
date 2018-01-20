@@ -116,7 +116,6 @@ exports.seed = async function(knex, promise){
   const tournament_enrollmentTask = (async () => {
     const [tournament] = await tournamentTask;
     const tournament_id = tournament.id;
-    console.log('Tournement ID, ' + tournament_id);
     const users = await usersTask;
     await knex('enrollments').del();
     return knex('enrollments').insert([
