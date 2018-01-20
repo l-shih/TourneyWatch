@@ -7,8 +7,6 @@ body {
   background: #191E21 url("/images/overwatch-logo.jpeg") 50% 50% no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  height: 100%;
-  overflow: hidden;
   }
 
 main {
